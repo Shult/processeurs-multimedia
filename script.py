@@ -9,6 +9,8 @@ import subprocess # Permet d'exécuter des commandes système à partir du scri
 import sys  # Fournit un accès aux variables et fonctions liées au système.
 import matplotlib.pyplot as plt # Bibliothèque pour créer des graphique et des tracés. 
 
+from datetime import datetime   # Récupére la date pour créer des fichiers uniques
+
 def run_program(program, iterations, image_name):
     compiled_program = "./"+program
     
@@ -35,18 +37,29 @@ def run_program(program, iterations, image_name):
 
 # Affiche un graphique des temps d'exécution 
 def plot_execution_times(execution_times):
-    avg_time = sum(execution_times) / len(execution_times)
-    print("Temps moyen d'exécution : ", avg_time*1000000, " ms")
+    avg_time = sum(execution_times) / len(execution_times) # Temps moyen 
+    # print("Temps moyen d'exécution : ", avg_time*1000000, " us")
     plt.figure(figsize=(10,5))
     plt.plot(range(1, len(execution_times) + 1), execution_times, label='Temps d\'exécution', marker='o')
 
-    plt.axhline(y=avg_time, color='red', linestyle='-', label=f'Temps moyen : {avg_time * 1000000:.2f} ms')
+    plt.axhline(y=avg_time, color='red', linestyle='-', label=f'Temps moyen : {avg_time * 1000000:.2f} us')
     plt.xlabel('Numéro d\'exécution')
     plt.ylabel('Temps d\'exécution (s)')
     plt.title('Temps d\'exécution pour l\'image')
     plt.legend()
     plt.grid(True)
+
+    # Pour sauvegarder le graphique
+    # Récupérer la date et l'heure courantes
+    now = datetime.now()
+
+    # Formater la date et l'heure au format désiré
+    formatted_date = now.strftime("%Y-%m-%d-%H-%M-%S")
+    # print(formatted_date)
+    fileName = "Graphes/"+formatted_date+".png"
+    plt.savefig(fileName)
     plt.show()
+    return avg_time
 
 # Affiche une barre de progression
 def display_progress_bar(iteration, total, bar_length=50):
@@ -71,6 +84,9 @@ if __name__ == "__main__":
     image_name = sys.argv[3]    # Récupère le troisième paramètre
     
     execution_times = run_program(program, iterations, image_name)
+    avg_time = plot_execution_times(execution_times)
+    print(f"Temps moyen d'exécution : {avg_time*1000000:.2f} us")
 
-    # Graphique des temps d'exécution
-    plot_execution_times(execution_times)
+    sys.exit(avg_time)
+
+    

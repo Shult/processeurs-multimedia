@@ -1,0 +1,14 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "emmintrin.h": "c",
+        "xmmintrin.h": "c",
+        "stdlib.h": "c",
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "random": "cpp",
+        "stdio.h": "c"
+    }
+}

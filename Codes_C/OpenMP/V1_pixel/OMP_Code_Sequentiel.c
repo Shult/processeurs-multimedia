@@ -193,9 +193,6 @@ InitClock;
 
 
 	// Etant donnée qu'on parcours plus qu'un tableau, on a besoin de qu'une seul boucle
-	
-	// Parallélise la boucle, chaque thread trouve le min et max locaux, puis combine les résultats pour obtenir les valeurs globales.
-	#pragma omp parallel for reduction(min: LE_MIN) reduction(max: LE_MAX)
 	for (i=0;i<TailleImage;i++) {
 		LE_MIN = MIN(LE_MIN, image[i]);
 		LE_MAX = MAX(LE_MAX, image[i]);
@@ -219,7 +216,7 @@ InitClock;
 	/*========================================================================*/
 	
 ClockStart;
-	
+
 	#pragma omp parallel for	// On vient passer le for en parallèle
 	for (i = 0 ; i < TailleImage ; i++) {
 		resultat[i] = ((image[i] - LE_MIN) * ETALEMENT);

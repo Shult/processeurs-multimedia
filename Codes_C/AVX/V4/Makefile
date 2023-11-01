@@ -2,7 +2,7 @@
 
 CC = g++
 CFLAGS = -O3 -mavx2 -Wall
-TARGET = a.out
+TARGET = AVX
 SRC = V4_AVX.c
 
 all: $(TARGET)

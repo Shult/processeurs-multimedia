@@ -5,15 +5,15 @@ CFLAGS = -O3 -mavx2 -Wall
 
 # Fichiers sources et exécutables
 V1_src = V1/CodeSequentiel.c
-V1_exe = V1/a.out
+V1_exe = V1/Init
 V2_src = V2/CodeSequentiel_V2.c
-V2_exe = V2/a.out
+V2_exe = V2/Vecteur
 V3_src = V3_Float/CodeSequentiel_V3.c
-V3_exe = V3_Float/a.out
+V3_exe = V3_Float/Float
 V4_src = V4_Short/CodeSequentiel_V4.c
-V4_exe = V4_Short/a.out
+V4_exe = V4_Short/Short
 V5_src = V5_Char/CodeSequentiel_V5.c
-V5_exe = V5_Char/a.out
+V5_exe = V5_Char/Char
 
 all: $(V1_exe) $(V2_exe) $(V3_exe) $(V4_exe) $(V5_exe)
 

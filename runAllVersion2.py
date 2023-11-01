@@ -18,19 +18,17 @@ if __name__ == "__main__":
     script_name = "script2.py"
     iterations = 100
     image_name = "Ressources/image1.pgm"
-    num_threads = 4  # Vous pouvez mettre une valeur par défaut pour le nombre de threads ici
 
     versions = {
-        "./Codes_C/Code_Sequentiel/V1/a.out": None, 
-        "./Codes_C/Code_Sequentiel/V2/a.out": None, 
-        "./Codes_C/Code_Sequentiel/V3_Float/a.out": None, 
-        "./Codes_C/Code_Sequentiel/V4_Short/a.out": None, 
-        "./Codes_C/Code_Sequentiel/V5_Char/a.out": None,
-        "./Codes_C/AVX/V4/a.out": None,
+        "./Codes_C/Code_Sequentiel/V1/Init": None, 
+        "./Codes_C/Code_Sequentiel/V2/Vecteur": None, 
+        "./Codes_C/Code_Sequentiel/V3_Float/Float": None, 
+        "./Codes_C/Code_Sequentiel/V4_Short/Short": None, 
+        "./Codes_C/Code_Sequentiel/V5_Char/Char": None,
+        "./Codes_C/AVX/V4/AVX": None,
         "./Codes_C/CUDA/V1/V1_CUDA": None,
         "./Codes_C/CUDA/V2/V2_CUDA": 10, # Taille des blocs
-        "./Codes_C/OpenMP/V1_pixel/OMP_Code_Sequentiel": 1, # Nombre de thread(s)
-        "./Codes_C/OpenMP/V2_pixel_min_max/OMP_Code_Sequentiel": 1 # Nombre de thread(s)
+        "./Codes_C/OpenMP/V2_pixel_min_max/OMP_PixelMinMax": 9 # Nombre de thread(s)
         # ... (ajouter tous les autres chemins de fichier exécutables ici)
     }
 
@@ -47,7 +45,9 @@ if __name__ == "__main__":
             average_times.append(0)
 
 
-    plt.bar(range(len(versions)), average_times, tick_label=[f"Version {i}" for i in range(1, len(versions) + 1)])
+    labels = [version.split("/")[-1] for version in versions.keys()]
+
+    plt.bar(range(len(versions)), average_times, tick_label=labels)
     plt.xlabel('Version')
     plt.ylabel('Temps moyen (us)')
     plt.title('Temps moyen d\'exécution par version')

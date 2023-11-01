@@ -19,7 +19,7 @@ num_cores = multiprocessing.cpu_count()
 print(f"Number of cores : {num_cores}")
 
 # Combien de fois chaque configuration de thread doit être exécutée
-num_repeats = 50
+num_repeats = 100
 
 # Listes pour stocker les résultats pour le graphique
 threads = []

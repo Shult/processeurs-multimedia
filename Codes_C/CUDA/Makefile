@@ -2,7 +2,9 @@
 NVCC = nvcc
 
 # Options de compilation, ajoutez des optimisations ou d'autres options au besoin
-NVCCFLAGS = -O3 -arch=sm_35
+# NVCCFLAGS = -O3 -arch=sm_35
+NVCCFLAGS = -O3 -arch=sm_80
+
 
 # Tous les exécutables à construire
 all: V1/V1_CUDA V2/V2_CUDA

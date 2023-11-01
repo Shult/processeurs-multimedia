@@ -56,7 +56,7 @@ __global__ void traiterImage(int *image, int *resultat, int TailleImage, int LE_
     }
 }
 
-__global__ void inchallahCaPasse(int *image, int *resultat, int TailleImage){
+__global__ void opti_min(int *image, int *resultat, int TailleImage){
 	long i = (long)blockIdx.x * (long)blockDim.x + (long)threadIdx.x;
 	long j = TailleImage/2 + i;
 	if(i < TailleImage/2){
@@ -72,7 +72,7 @@ __global__ void inchallahCaPasse(int *image, int *resultat, int TailleImage){
 	}
 }
 
-__global__ void inchallahCaPasseMAX(int *image, int *resultat, int TailleImage){
+__global__ void opti_max(int *image, int *resultat, int TailleImage){
 	long i = (long)blockIdx.x * (long)blockDim.x + (long)threadIdx.x;
 	long j = TailleImage/2 + i;
 	if(i < TailleImage/2){
@@ -107,28 +107,6 @@ __global__ void calculMinGPUExt(int *image, int *resultat, int TailleImage){
 			j++;
 		}
 }
-
-/*__global__ void calculMinGPUInt(int *image, int tailleImage, int LE_MIN){
-	int i, j;
-	while(tailleImage != 1){
-		int moitie = tailleImage/2;
-		j = moitie;
-		bool parite = tailleImage%2 == 0 ? true : false;
-		for(i=0; i< moitie; i++){
-			//traitement d'un vecteur
-			if(parite == false && i == moitie -1){
-				image[i] = image[i];
-			}
-			else{
-				image[i] = image[i] < image[j] ? image[i] : image[j];
-			}
-			
-			j++;
-		}
-		tailleImage = moitie;
-		LE_MIN = image[0];
-	}
-}*/
 
 // Transformer ça en kernel (__global__)
 int calculMin(int *image, int tailleImage){
@@ -318,7 +296,7 @@ InitClock;
 	while (TailleImageTmp != 1)
 	{
     	int blocksPerGrid2 = (TailleImageTmp/threadsPerBlock2) / 2; // dimGrid = (TailleImage/dimBlock)/2
-		inchallahCaPasse<<<blocksPerGrid2, threadsPerBlock2>>>(cuda_image, cuda_res, TailleImageTmp);
+		opti_min<<<blocksPerGrid2, threadsPerBlock2>>>(cuda_image, cuda_res, TailleImageTmp);
 		TailleImageTmp = TailleImageTmp / 2;
 		cuda_image = cuda_res;
 	}
@@ -350,7 +328,7 @@ InitClock;
 	while (TailleImageTmp != 1)
 	{
     	int blocksPerGrid2 = (TailleImageTmp/threadsPerBlock2) / 2; // dimGrid = (TailleImage/dimBlock)/2
-		inchallahCaPasseMAX<<<blocksPerGrid2, threadsPerBlock2>>>(cuda_image, cuda_res, TailleImageTmp);
+		opti_max<<<blocksPerGrid2, threadsPerBlock2>>>(cuda_image, cuda_res, TailleImageTmp);
 		TailleImageTmp = TailleImageTmp / 2;
 		cuda_image = cuda_res;
 	}
@@ -385,7 +363,8 @@ InitClock;
 	} else {
 		ETALEMENT = (float)(MAX_VALEUR - MIN_VALEUR) / (float)(LE_MAX - LE_MIN);
 		int j = LE_MAX - LE_MIN;
-		printf("A LA fin c est quoi %d \n", j);
+		//printf("A LA fin c est quoi %d \n", j);
+		printf("(Le min) %d - (le max) %d = %d\n", LE_MIN, LE_MAX, j);
 	}
 
 	// Calcul des nouvelles valeurs de pixel sur le GPU (CUDA)

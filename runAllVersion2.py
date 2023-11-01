@@ -11,8 +11,8 @@ def run_script_for_version(script_name, program_name, iterations, image_name, nu
     avg_time_line = [line for line in result.stdout.split('\n') if "Temps moyen d'exécution :" in line]
     if avg_time_line:
         avg_time = float(avg_time_line[0].split(":")[1].strip().split(" ")[0])
-        return avg_time
-    return None
+        return avg_time, result
+    return None, result
 
 if __name__ == "__main__":
     script_name = "script2.py"
@@ -27,21 +27,23 @@ if __name__ == "__main__":
         "./Codes_C/Code_Sequentiel/V4_Short/a.out": None, 
         "./Codes_C/Code_Sequentiel/V5_Char/a.out": None,
         "./Codes_C/AVX/V4/a.out": None,
-        "./Codes_C/CUDA/V1/CUDA_V1": None,
-        "./Codes_C/CUDA/V2/CUDA_V2": None,
-        "./Codes_C/OpenMP/V1_pixel/OMP_Code_Sequentiel": 4,
-        "./Codes_C/OpenMP/V2_pixel_min_max/OMP_Code_Sequentiel": 4
+        "./Codes_C/CUDA/V1/V1_CUDA": None,
+        "./Codes_C/CUDA/V2/V2_CUDA": 10, # Taille des blocs
+        "./Codes_C/OpenMP/V1_pixel/OMP_Code_Sequentiel": 1, # Nombre de thread(s)
+        "./Codes_C/OpenMP/V2_pixel_min_max/OMP_Code_Sequentiel": 1 # Nombre de thread(s)
         # ... (ajouter tous les autres chemins de fichier exécutables ici)
     }
 
     average_times = []
     for version, threads in versions.items():
         print(f"\nRunning for version: {version}\n")
-        avg_time = run_script_for_version(script_name, version, iterations, image_name, threads)
+        avg_time, result = run_script_for_version(script_name, version, iterations, image_name, threads)
         if avg_time is not None:
             average_times.append(avg_time)
         else:
             print(f"Erreur : le temps moyen n'a pas pu être calculé pour {version}")
+            print("Sortie du script (stdout):\n", result.stdout)
+            print("Sortie d'erreur du script (stderr):\n", result.stderr)
             average_times.append(0)
 
 

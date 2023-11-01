@@ -210,7 +210,7 @@ InitClock;
 	}
 	
 	/*========================================================================*/
-	/* Calcul de cahque nouvelle valeur de pixel							*/
+	/* Calcul de chaque nouvelle valeur de pixel							*/
 	/*========================================================================*/
 	
 ClockStart;
@@ -220,7 +220,6 @@ ClockStart;
 			resultat[i][j] = ((image[i][j] - LE_MIN) * ETALEMENT);
 		}
 	}
-
 
 ClockEnd;
 

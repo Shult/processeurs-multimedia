@@ -27,9 +27,7 @@ if __name__ == "__main__":
         "./Codes_C/Code_Sequentiel/V5_Char/a.out",
         "./Codes_C/AVX/V4/a.out",
         "./Codes_C/CUDA/V1/CUDA_V1",
-        "./Codes_C/CUDA/V1/CUDA_V2",
-        "./Codes_C/OpenMP/V1_pixel/OMP_Code_Sequentiel",
-        "./Codes_C/OpenMP/V2_pixel_min_max/OMP_Code_Sequentiel"
+        "./Codes_C/CUDA/V1/CUDA_V2"
         ]
     average_times = []
     for version in versions:

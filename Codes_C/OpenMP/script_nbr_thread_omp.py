@@ -19,7 +19,7 @@ num_cores = multiprocessing.cpu_count()
 print(f"Number of cores : {num_cores}")
 
 # Combien de fois chaque configuration de thread doit être exécutée
-num_repeats = 80
+num_repeats = 50
 
 # Listes pour stocker les résultats pour le graphique
 threads = []
@@ -27,7 +27,7 @@ average_times = []
 
 i = 0
 
-for num_threads in range(1, num_cores):
+for num_threads in range(1, num_cores + 10): # On a mis +10 car ça nous permet d'observer les valeurs lorsque nous dépasson le nombre de coeurs.
     total_time = 0.0
     
     for i in range(num_repeats):

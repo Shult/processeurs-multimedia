@@ -8,7 +8,7 @@ from datetime import datetime   # Récupére la date pour créer des fichiers un
 # subprocess.run(["nvcc", "-o", "V2_CUDA", "V2/V2_CUDA.cu"])
 
 # Les différentes valeurs de threadsPerBlock2 que vous souhaitez tester
-threadsPerBlock2_values = range(1, 2000, 100)  # Ajustez la plage et le pas selon vos besoins
+threadsPerBlock2_values = range(1, 32, 1)  # Ajustez la plage et le pas selon vos besoins
 
 # Pour stocker les temps d'exécution pour chaque valeur de threadsPerBlock2
 execution_times = []

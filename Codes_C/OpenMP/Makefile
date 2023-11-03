@@ -8,7 +8,7 @@ CFLAGS = -fopenmp
 SRC1 = V1_pixel/OMP_Code_Sequentiel.c
 EXE1 = V1_pixel/OMP_Pixel
 SRC2 = V2_pixel_min_max/OMP_Code_Sequentiel.c
-EXE2 = V2_pixel_min_max/OMP_PixelMinMax
+EXE2 = V2_pixel_min_max/OMP
 
 all: $(EXE1) $(EXE2)
 
